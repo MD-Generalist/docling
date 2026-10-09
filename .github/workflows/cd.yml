@@ -41,7 +41,7 @@ jobs:
         run: uv run --no-sync semantic-release changelog --unreleased
   release:
     needs: [code-checks, pre-release-check]
-    if: needs.pre-release-check.outputs.TARGET_TAG_V != ''
+    if: needs.pre-release-check.outputs.TARGET_TAG_V != '' && (github.repository == 'docling-project/docling' || vars.ENABLE_FORK_RELEASES == 'true')
     environment: auto-release
     runs-on: ubuntu-latest
     concurrency: release
