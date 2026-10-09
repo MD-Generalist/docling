@@ -9,11 +9,12 @@ jobs:
   build-docs:
     uses: ./.github/workflows/docs.yml
     with:
-      deploy: true
+      deploy: ${{ github.repository == 'docling-project/docling' || vars.ENABLE_FORK_PAGES == 'true' }}
     permissions:
       contents: read
 
   deploy-docs:
+    if: github.repository == 'docling-project/docling' || vars.ENABLE_FORK_PAGES == 'true'
     needs: build-docs
     runs-on: ubuntu-latest
     environment:
